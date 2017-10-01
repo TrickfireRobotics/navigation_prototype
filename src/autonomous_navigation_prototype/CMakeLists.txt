@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   openni_launch
   roscpp
   tf2_ros
+  sensor_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -69,8 +70,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
+#   sensor_msgs  #used for dummy node 
 # )
 
 ################################################
@@ -149,7 +149,9 @@ include_directories(
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
-
+add_executable(dummy_scan_subscriber ./src/dummy_scan_subscriber.cpp)
+target_link_libraries(dummy_scan_subscriber ${catkin_LIBRARIES})
+#add_dependencies(dummy_scan_subscriber sensor_msgs)
 #############
 ## Install ##
 #############
