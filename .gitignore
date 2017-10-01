@@ -2,3 +2,4 @@ build
 devel
 .idea
 CMakeLists.txt
+src/cmake-build-debug/
