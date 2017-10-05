@@ -32,6 +32,8 @@
  */
 
 #include <depthimage_to_laserscan/DepthImageToLaserScanROS.h>
+#include "../include/depthimage_to_laserscan/DepthImageToLaserScanROS.h"
+
 
 int main(int argc, char **argv){
   ros::init(argc, argv, "depthimage_to_laserscan");

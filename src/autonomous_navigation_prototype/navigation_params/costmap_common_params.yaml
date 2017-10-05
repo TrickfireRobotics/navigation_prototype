@@ -6,6 +6,6 @@ inflation_radius: 0.15
 
 observation_sources: laser_scan_sensor point_cloud_sensor
 
-laser_scan_sensor: {sensor_frame: odom, data_type: LaserScan, topic: scan , marking: true, clearing: true}
+laser_scan_sensor: {sensor_frame: odom, data_type: LaserScan, topic: /depthimage_to_laserscan/scan , marking: true, clearing: true}
 
-point_cloud_sensor: {sensor_frame: odom, data_type: PointCloud2, topic: rtabmap/cloud_map , marking: true, clearing: true }
+point_cloud_sensor: {sensor_frame: odom, data_type: PointCloud2, topic: /rtabmap/cloud_map , marking: true, clearing: true }
