@@ -1,27 +1,27 @@
 <launch>
-    <!--launch openni-->
-    <include file="$(find openni_launch)/launch/openni.launch" >
-      <arg name="depth_registration" value="true"/>
-    </include>
    <group ns="rtabmap">
-
+      <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_camera" args="0.155 0 0.02 0 0 0 1 /base_link /camera_link"/>
       <node pkg="rtabmap_ros" type="rgbd_odometry" name="rgbd_odometry" output="screen">
-        <remap from="rgb/image"       to="/camera/rgb/image_rect_color"/>
-        <remap from="depth/image"     to="/camera/depth_registered/image_raw"/>
-        <remap from="rgb/camera_info" to="/camera/depth_registered/camera_info"/>
+          <remap from="rgb/image" to="/camera/rgb/image_rect_color"/>
+          <remap from="rgb/camera_info" to="/camera/rgb/camera_info"/>
+
+          <remap from="depth/image" to="/camera/depth_registered/image_raw"/>
+          <remap from="depth/camera_info" to="/camera/depth_registered/camera_info"/>
         <param name="frame_id" type="string" value="base_link"/>
       </node>
-      <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="-delete_db_on_start">
+      <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="--delete_db_on_start">
         <param name="frame_id" type="string" value="base_link"/>
         <param name="subscribe_depth" type="bool" value="true"/>
 
         <remap from="odom" to="odom"/>
+
         <remap from="rgb/image" to="/camera/rgb/image_rect_color"/>
-        <remap from="depth/image" to="/camera/depth_registered/image_raw"/>
         <remap from="rgb/camera_info" to="/camera/rgb/camera_info"/>
 
-        <param name="queue_size" type="int" value="10"/>
+        <remap from="depth/image" to="/camera/depth_registered/image_raw"/>
+        <remap from="depth/camera_info" to="/camera/depth_registered/camera_info"/>
 
+        <param name="queue_size" type="int" value="10"/>
 
         <param name="RGBD/AngularUpdate" type="string" value="0.01"/>
         <param name="RGBD/LinearUpdate" type="string" value="0.01"/>
@@ -29,11 +29,11 @@
         <param name="Mem/RehearsalSimilarity" type="string" value="0.45"/>
         <param name="RGBD/OptimizeFromGraphEnd" type="string" value="true"/>
     </node>
-    <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_camera" args="0.155 0 0.02 0 0 0 1 /base_link /camera_link"/>
   </group>
   <group ns="depthimage_to_laserscan">
     <node name="depthimage_to_laserscan" pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" >
       <remap from="image" to="/camera/depth_registered/image_raw"/>
+      <remap from="camera_info" to="/camera/depth_registered/camera_info"/>
     </node>
   </group>
 </launch>

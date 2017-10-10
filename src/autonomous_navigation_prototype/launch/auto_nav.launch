@@ -1,4 +1,5 @@
 <launch>
+  <include file="$(find autonomous_navigation_prototype)/launch/openni.launch"/>
   <include file="$(find autonomous_navigation_prototype)/launch/prototype_config.launch"/>
   <include file="$(find autonomous_navigation_prototype)/launch/move_base.launch"/>
 </launch>
